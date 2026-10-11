@@ -6,12 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class InMemoryCredencialRepository {
 
-    private final List<Credencial> credenciais = new ArrayList<>();
 
-    public void adicionar(Credencial credencial){
+
+    private final List<Credencial> credenciais = new ArrayList<>();
+    private long nextID =  1;
+
+
+    public Credencial adicionar(String site,String usuario, String senha ){
+        Credencial credencial = new Credencial(nextID, site, usuario, senha);
         credenciais.add(credencial);
+        nextID ++;
+        return credencial;
     }
 
     public List<Credencial> buscaPorSite(String site){
@@ -19,7 +27,7 @@ public class InMemoryCredencialRepository {
     }
 
     public boolean excluirPorId(long id) {
-       return credenciais.removeIf(n -> n.getId() == id);
+        return credenciais.removeIf(n -> n.getId() == id);
     }
 
 }
