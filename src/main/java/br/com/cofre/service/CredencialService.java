@@ -2,18 +2,19 @@ package br.com.cofre.service;
 
 
 import br.com.cofre.model.Credencial;
-import br.com.cofre.repository.InMemoryCredencialRepository;
+import br.com.cofre.repository.CredencialRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public class CredencialService {
-    private final InMemoryCredencialRepository repository;
+    private final CredencialRepository repository;
 
-    public CredencialService( InMemoryCredencialRepository repository){
+    public CredencialService(CredencialRepository repository){
         this.repository = repository;
     }
     public Credencial cadastrar(String site, String user, String senha){
+
         if(Optional.ofNullable(site).map(String::isBlank).orElse(true)){
             throw new IllegalArgumentException("Nome do site não pode estar vazio.");
         }
@@ -35,7 +36,8 @@ public class CredencialService {
         }
     }
     public boolean excluirPorId(long id) {
-           if(id <= 0){
+
+        if(id <= 0){
                throw new IllegalArgumentException();
            }
         return repository.excluirPorId(id);
